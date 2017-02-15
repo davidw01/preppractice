@@ -14,7 +14,54 @@ server.route({
     method: 'GET',
     path:'/', 
     handler: function (request, reply) {
-        return reply('hello world hello1');
+        return reply('hello world!');
+    }
+});
+
+// Add protected
+server.route({
+    method: 'GET',
+    path:'/protected', 
+    handler: function (request, reply) {
+        return reply('This is protected.').code(401);
+    }
+});
+
+// Add strings/upper
+server.route({
+    method: 'GET',
+    path:'/strings/upper', 
+    handler: function (request, reply) {
+    	var parameters = request.query;
+    	var value = parameters[Object.keys(parameters)[0]];
+        return reply(value.toUpperCase());
+    }
+});
+
+// Add strings/reverse
+server.route({
+    method: 'GET',
+    path:'/strings/reverse', 
+    handler: function (request, reply) {
+    	var parameters = request.query;
+    	var value = parameters[Object.keys(parameters)[0]];
+        return reply(value.split("").reverse().join(""));
+    }
+});
+
+// Add strings/concatenate
+server.route({
+    method: 'GET',
+    path:'/strings/concatenate', 
+    handler: function (request, reply) {
+    	var parameters = request.query;
+    	var value = parameters.value;
+    	var times = parameters.times;
+    	var result = ""
+    	for (var i = 0; i < Number(times); i++) {
+    		result += value;
+    	}
+        return reply(result);
     }
 });
 
